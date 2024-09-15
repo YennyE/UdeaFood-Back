@@ -12,8 +12,7 @@ public class Tienda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "nombre")
-    @NotNull
+    @Column(name = "nombre",nullable = false, unique = true)
     private String nombre;
     @Column(name = "descripcion")
     private String descripcion;
@@ -21,18 +20,15 @@ public class Tienda {
     private String ubicacion;
     @Column(name = "foto")
     private String foto;
-    @Column(name = "correo")
-    @NotNull
+    @Column(name = "correo", nullable = false, unique = true)
     private String correo;
-    @Column(name = "usuario")
-    @NotNull
+    @Column(name = "usuario", nullable = false, unique = true)
+
     private String usuario;
-    @NotNull
-    @Column(name = "clave")
+    @Column(name = "clave", nullable = false)
     private String clave;
 
-    @Column(name = "domicilio")
-    @NotNull
+    @Column(name = "domicilio", nullable = false)
     private Character domicilio;
     @Column(name = "contacto")
     private String contacto;
