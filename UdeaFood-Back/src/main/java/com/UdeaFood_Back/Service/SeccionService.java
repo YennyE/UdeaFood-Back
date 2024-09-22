@@ -1,26 +1,29 @@
 package com.UdeaFood_Back.Service;
 
-import com.UdeaFood_Back.Modelo.Producto;
 import com.UdeaFood_Back.Modelo.Seccion;
-import com.UdeaFood_Back.Repository.IProductoRepository;
 import com.UdeaFood_Back.Repository.ISeccionRepository;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class SeccionService {
-    private ISeccionRepository iSeccionRepository;
 
-    public void crearSeccion(Seccion seccion){iSeccionRepository.save(seccion);}
+    private final ISeccionRepository iSeccionRepository;
 
-    public List<Seccion> getAllSeccionByIdTienda(Integer idTienda){
+
+
+    public void crearSeccion(Seccion seccion){
+        iSeccionRepository.save(seccion);
+    }
+
+
+
+    public List<Seccion> getAllSeccionesByIdTienda(Integer idTienda){
         return iSeccionRepository.findAllByIdTienda(idTienda);
     };
-
-    public SeccionService(ISeccionRepository iSeccionRepository) {
-        this.iSeccionRepository = iSeccionRepository;
-    }
 }

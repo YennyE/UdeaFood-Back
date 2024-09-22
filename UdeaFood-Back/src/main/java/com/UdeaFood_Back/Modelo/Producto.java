@@ -1,19 +1,26 @@
 package com.UdeaFood_Back.Modelo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "Producto")
-@Data
+@Getter
+@Setter
 public class Producto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
+
     @Column(name = "nombre",nullable = false, unique = true)
     private String nombre;
+
     @Column(name = "descripcion")
     private String descripcion;
 
@@ -23,4 +30,20 @@ public class Producto {
     @Column(name = "disponibilidad", nullable = false)
     private String disponibilidad;
 
+
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "seccion", referencedColumnName = "id")
+    @JsonBackReference
+    private Seccion seccion;
+
+
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "categoria_producto",
+            joinColumns = @JoinColumn(name = "id_producto", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "idCategoria", referencedColumnName = "id_categoria")
+    )
+    private List<Categoria> categorias;
 }
