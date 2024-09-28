@@ -40,4 +40,10 @@ public class Tienda {
 
     @Column(name = "contacto")
     private String contacto;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_tienda", nullable = false)
+    private TipoTienda tipoTienda;
+
+
 }
