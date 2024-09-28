@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/Producto")
@@ -29,6 +31,12 @@ public class ProductoController {
         productoService.crearProducto(producto);
 
         return ResponseEntity.ok("Producto creado");
+    }
+    @GetMapping("/consultar/{nombre}")
+    public ResponseEntity<List<Producto>> crearProducto(@PathVariable String nombre) {
+        return ResponseEntity.ok(productoService.consultarPorNombre(nombre));
+
+        //return ResponseEntity.ok("Producto creado");
     }
 
 }
