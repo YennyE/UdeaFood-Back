@@ -34,7 +34,7 @@ public class ProductoService {
         for(Producto p: producto){
             List<Categoria> categorias = p.getCategorias();
             for(Categoria c: categorias){
-                if(c.getNombreCategoria().contains(categoria)){
+                if(c.getNombreCategoria().toLowerCase().contains(categoria.toLowerCase())){
                     productosCategoria.add(p);
                 }
             }
