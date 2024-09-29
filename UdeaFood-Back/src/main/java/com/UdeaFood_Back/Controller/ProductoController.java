@@ -39,4 +39,9 @@ public class ProductoController {
         //return ResponseEntity.ok("Producto creado");
     }
 
+    @GetMapping("/obtenerTodos/{categoria}")
+    public ResponseEntity<List<Producto>> obtenerTodosLosProductos(@PathVariable String categoria) {
+        return ResponseEntity.ok(productoService.obtenerTodosLosProductos(categoria));
+    }
+
 }

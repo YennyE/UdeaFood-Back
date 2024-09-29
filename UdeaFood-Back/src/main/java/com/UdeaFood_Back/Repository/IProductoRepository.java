@@ -10,4 +10,6 @@ import java.util.List;
 public interface IProductoRepository extends JpaRepository<Producto, Integer>{
 
     List<Producto> findAllByNombreContaining(String nombre);
+    //List<Producto> findAllByNombreCategoria(String nombreCategoria);
+    //List<Producto> findAllByCategoriasNombreCategoriaContaining(String nombreCategoria);
 }
