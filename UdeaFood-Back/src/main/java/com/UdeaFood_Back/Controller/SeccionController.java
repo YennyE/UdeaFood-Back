@@ -46,4 +46,13 @@ public class SeccionController {
     }
 
 
+
+
+
+    @GetMapping("/tipo/{tipo_tienda}")
+    public ResponseEntity<List<Seccion>> getAllSeccionesByTipoTienda(@PathVariable String tipo_tienda){
+        return ResponseEntity.ok(seccionService.getAllSeccionesByTipoTienda(tipo_tienda));
+    }
+
+
 }

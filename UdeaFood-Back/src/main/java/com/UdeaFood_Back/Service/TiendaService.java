@@ -20,10 +20,11 @@ public class TiendaService {
 
 
 
-    public void crear_tienda (Tienda tienda){itiendaRepository.save(tienda);
+    public void crear_tienda (Tienda tienda){
+        itiendaRepository.save(tienda);
 
         Seccion seccion = new Seccion();
-        seccion.setIdTienda(tienda.getId());
+        seccion.setIdTienda(tienda);
         seccion.setNombre("Productos");
         seccion.setProductos(Collections.emptyList());
         iSeccionRepository.save(seccion);
