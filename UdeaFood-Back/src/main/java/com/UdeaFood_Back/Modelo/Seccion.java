@@ -1,5 +1,6 @@
 package com.UdeaFood_Back.Modelo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -17,8 +18,11 @@ public class Seccion {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "id_tienda",nullable = false)
-    private Integer idTienda;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_tienda", referencedColumnName = "id", nullable = false)
+    @JsonBackReference
+    private Tienda idTienda;
+
 
     @Column(name = "nombre",nullable = false)
     private String nombre;

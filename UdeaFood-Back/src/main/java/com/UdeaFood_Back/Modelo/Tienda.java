@@ -1,7 +1,10 @@
 package com.UdeaFood_Back.Modelo;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 
 @Entity
@@ -44,6 +47,10 @@ public class Tienda {
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_tienda", nullable = false)
     private TipoTienda tipoTienda;
+
+    @OneToMany(mappedBy = "idTienda", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<Seccion> secciones;
 
 
 }
