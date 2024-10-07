@@ -1,6 +1,7 @@
 package com.UdeaFood_Back.Service;
 
 import com.UdeaFood_Back.Modelo.Categoria;
+import com.UdeaFood_Back.Modelo.Producto;
 import com.UdeaFood_Back.Repository.ICategoriaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -19,4 +20,5 @@ public class CategoriaService {
     public List<Categoria> getAllCategories() {
         return iCategoriaRepository.findAll();
     }
+
 }

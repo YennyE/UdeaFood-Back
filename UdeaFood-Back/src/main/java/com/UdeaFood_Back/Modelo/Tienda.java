@@ -52,5 +52,4 @@ public class Tienda {
     @JsonManagedReference
     private List<Seccion> secciones;
 
-
 }

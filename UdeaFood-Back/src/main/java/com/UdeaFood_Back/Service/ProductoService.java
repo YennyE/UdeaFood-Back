@@ -43,5 +43,9 @@ public class ProductoService {
         return productosCategoria;
 
     }
+    // para el tipo de tienda
+   // public List<Producto>obtenerProductosPorTipoTienda(String tipoTienda){
+     //   return iProductoRepository.findByTipoTienda(tipoTienda);
+    //}
 
 }
