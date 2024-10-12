@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
@@ -29,10 +30,17 @@ public class TiendaController {
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @PostMapping("/crearTienda")
-    public ResponseEntity<String> crearTienda(@RequestBody Tienda tienda){
-        tiendaService.crear_tienda(tienda);
-        return ResponseEntity.ok("Tienda creada");
+    public ResponseEntity<String> crearTienda(@RequestBody Tienda tienda) {
+        try {
+            tiendaService.crear_tienda(tienda);
+            return ResponseEntity.ok("Tienda creada exitosamente");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Solicitud incorrecta: " + e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno: " + e.getMessage());
+        }
     }
+
 
     //Endpoint para obtener tiendas por tipo de tienda
     @GetMapping("/tipoTienda/{tipoTienda}")
@@ -40,11 +48,14 @@ public class TiendaController {
         List<Tienda> tiendas = tiendaService.getTiendasByTipoTienda(tipoTienda);
         return ResponseEntity.ok(tiendas);
     }
+  
+  
     //Endpoint para obtener todas las tiendas
    @GetMapping("/todas")
     public ResponseEntity<List<Tienda>> getAllTiendas(){
         List<Tienda> tiendas = tiendaService.getAllTiendas();
         return ResponseEntity.ok(tiendas);
     }
+
 
 }
