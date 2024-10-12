@@ -1,6 +1,7 @@
 package com.UdeaFood_Back.Controller;
 
 
+import com.UdeaFood_Back.DTO.SeccionDTO;
 import com.UdeaFood_Back.Modelo.Seccion;
 import com.UdeaFood_Back.Service.SeccionService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,8 +29,8 @@ public class SeccionController {
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @PostMapping("/crearSeccion")
-    public ResponseEntity<String> crearSeccion(@RequestBody Seccion seccion) {
-        seccionService.crearSeccion(seccion);
+    public ResponseEntity<String> crearSeccion(@RequestBody SeccionDTO seccionDTO) {
+        seccionService.crearSeccion(seccionDTO);
         return ResponseEntity.ok("Sección creada");
     }
 

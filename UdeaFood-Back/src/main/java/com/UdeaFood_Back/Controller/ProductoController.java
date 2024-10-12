@@ -43,5 +43,10 @@ public class ProductoController {
     public ResponseEntity<List<Producto>> obtenerTodosLosProductos(@PathVariable String categoria) {
         return ResponseEntity.ok(productoService.obtenerTodosLosProductos(categoria));
     }
+    //para tipo de tieda
+   // @GetMapping("/tipo-tienda/{tipoTienda}")
+    //public List<Producto>obtenerProductosPorTipoTienda(@PathVariable String tipoTienda){
+      //  return productoService.obtenerProductosPorTipoTienda(tipoTienda);
+    //}
 
 }
