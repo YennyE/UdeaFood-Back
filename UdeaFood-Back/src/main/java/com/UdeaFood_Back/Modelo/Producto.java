@@ -27,11 +27,12 @@ public class Producto {
     @Column(name = "precio", nullable = false)
     private Float precio;
 
-    @Column(name = "disponibilidad", nullable = false)
+    @Column(name = "disponibilidad")
     private String disponibilidad;
 
-    @Lob
-    private byte[] imagen;
+
+    @Column(name = "foto", columnDefinition = "LONGBLOB")
+    private byte[] foto;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "seccion", referencedColumnName = "id")
