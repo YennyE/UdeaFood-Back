@@ -30,7 +30,8 @@ public class Producto {
     @Column(name = "disponibilidad", nullable = false)
     private String disponibilidad;
 
-
+    @Lob
+    private byte[] imagen;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "seccion", referencedColumnName = "id")
