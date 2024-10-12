@@ -31,11 +31,11 @@ public class TiendaService {
         seccion.setProductos(Collections.emptyList());
         iSeccionRepository.save(seccion);
     }
-    //Método para obtener tiendas por tipo de tienda
+    //Metodo para obtener tiendas por tipo de tienda
     public List<Tienda> getTiendasByTipoTienda(TipoTienda tipoTienda){
         return itiendaRepository.findByTipoTienda(tipoTienda);
     }
-    //Método para obtener todas las tiendas
+    //Metodo para obtener todas las tiendas
    public List<Tienda> getAllTiendas(){
         return itiendaRepository.findAll();
     }

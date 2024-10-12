@@ -1,5 +1,6 @@
 package com.UdeaFood_Back.Service;
 
+import com.UdeaFood_Back.DTO.SeccionDTO;
 import com.UdeaFood_Back.Modelo.Producto;
 import com.UdeaFood_Back.Modelo.Seccion;
 import com.UdeaFood_Back.Modelo.Tienda;
@@ -21,7 +22,12 @@ public class SeccionService {
 
 
 
-    public void crearSeccion(Seccion seccion){
+    public void crearSeccion(SeccionDTO seccionDTO){
+        Seccion seccion = new Seccion();
+        seccion.setNombre(seccionDTO.getNombre());
+        Tienda tienda = new Tienda();
+        tienda.setId(seccionDTO.getIdTienda());
+        seccion.setIdTienda(tienda);
         iSeccionRepository.save(seccion);
     }
 
