@@ -16,7 +16,7 @@ public class ImagenProducto {
     private Integer id;
 
     @Column(name = "imagen", columnDefinition = "LONGBLOB")
-    private byte[] imagen; // Aquí guardamos la imagen en formato BLOB
+    private byte[] imagen; // Se guarda la imagen en formato BLOB
 
     @ManyToOne
     @JoinColumn(name = "id_producto", referencedColumnName = "id")

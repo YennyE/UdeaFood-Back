@@ -12,21 +12,24 @@ import java.util.List;
 
 public class ProductoDTO {
 
-        private Integer id;
-        private String nombre;
-        private String descripcion;
-        private Float precio;
-        private String disponibilidad;
-        private byte[] foto;
-        //private List<String> foto = new ArrayList<>();
-        private Seccion seccion;
-        private List<Categoria> categoria;
+    private Integer id;
+    private String nombre;
+    private String descripcion;
+    private Float precio;
+    private String disponibilidad;
+
+    private byte[] foto;
+
+    private Seccion seccion;
+    private List<Categoria> categoria;
+
+
 
     public ProductoDTO() {
 
     }
 
-    public ProductoDTO(Integer id, String nombre, String descripcion, Float precio, String disponibilidad,  byte[] foto, Seccion seccion, List<Categoria> categoria) {
+    public ProductoDTO(Integer id, String nombre, String descripcion, Float precio, String disponibilidad, byte[] foto, Seccion seccion, List<Categoria> categoria) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;

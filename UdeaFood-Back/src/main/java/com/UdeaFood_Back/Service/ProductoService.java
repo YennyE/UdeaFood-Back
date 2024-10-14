@@ -2,7 +2,7 @@ package com.UdeaFood_Back.Service;
 
 import com.UdeaFood_Back.DTO.ProductoDTO;
 import com.UdeaFood_Back.Modelo.*;
-import com.UdeaFood_Back.Repository.IImagenProducto;
+import com.UdeaFood_Back.Repository.IImagenRepository;
 import com.UdeaFood_Back.Repository.IProductoRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +18,10 @@ import java.util.List;
 public class ProductoService {
 
     private final IProductoRepository iProductoRepository;
-    private final IImagenProducto iImageRepository;
+    private final IImagenRepository iImageRepository;
 
 
-    public void crearProducto(ProductoDTO productoDTO){
+    public void crearProducto(ProductoDTO productoDTO) {
 
         Producto producto = new Producto();
         producto.setNombre(productoDTO.getNombre());
@@ -29,29 +29,23 @@ public class ProductoService {
         producto.setPrecio(productoDTO.getPrecio());
         producto.setDisponibilidad(productoDTO.getDisponibilidad());
 
-
         // CAMBIAR POR EL ID DE UNA TIENDA QUE EXISTA
         Tienda tienda = new Tienda();
         tienda.setId(1);
 
-
         producto.setSeccion(productoDTO.getSeccion());
-
-
         producto.setCategorias(productoDTO.getCategoria());
 
-        if (productoDTO.getFoto() != null ) {
+        if (productoDTO.getFoto() != null) {
 
-                ImagenProducto imagen = new ImagenProducto();
-                imagen.setProducto(producto);  // Asignar el ID del producto
-                //imagen.setImagen(Base64.getDecoder().decode(fotoBase64));  // Decodificar base64
-                imagen.setImagen(productoDTO.getFoto());  // Decodificar base64
-                iImageRepository.save(imagen);  // Guardar cada imagen
+            ImagenProducto imagen = new ImagenProducto();
+            imagen.setProducto(producto);
+            imagen.setImagen(productoDTO.getFoto());
+            iImageRepository.save(imagen);
 
-        }else{
+        } else {
             System.out.println("############################################################################################No hay fotos");
         }
-
         iProductoRepository.save(producto);
     }
 

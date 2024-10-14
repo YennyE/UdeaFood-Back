@@ -26,8 +26,12 @@ public class Tienda {
     @Column(name = "ubicacion")
     private String ubicacion;
 
+
+
     @Column(name = "foto", columnDefinition = "LONGBLOB")
     private byte[] foto;
+
+
 
     @Column(name = "correo", nullable = false, unique = true)
     private String correo;
