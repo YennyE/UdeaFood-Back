@@ -31,8 +31,9 @@ public class Producto {
     private String disponibilidad;
 
 
-    @Column(name = "foto", columnDefinition = "LONGBLOB")
-    private byte[] foto;
+    //@Column(name = "foto", columnDefinition = "LONGBLOB")
+    //private byte[] foto;
+
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "seccion", referencedColumnName = "id")

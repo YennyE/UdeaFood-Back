@@ -1,5 +1,6 @@
 package com.UdeaFood_Back.Controller;
 
+import com.UdeaFood_Back.DTO.ProductoDTO;
 import com.UdeaFood_Back.Modelo.Producto;
 import com.UdeaFood_Back.Service.ProductoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,8 +28,8 @@ public class ProductoController {
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @PostMapping("/crearProducto")
-    public ResponseEntity<String> crearProducto(@RequestBody Producto producto) {
-        productoService.crearProducto(producto);
+    public ResponseEntity<String> crearProducto(@RequestBody ProductoDTO productoDTO) {
+        productoService.crearProducto(productoDTO);
 
         return ResponseEntity.ok("Producto creado");
     }

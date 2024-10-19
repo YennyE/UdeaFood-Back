@@ -1,7 +1,8 @@
 package com.UdeaFood_Back.Service;
 
-import com.UdeaFood_Back.Modelo.Categoria;
-import com.UdeaFood_Back.Modelo.Producto;
+import com.UdeaFood_Back.DTO.ProductoDTO;
+import com.UdeaFood_Back.Modelo.*;
+import com.UdeaFood_Back.Repository.IImagenRepository;
 import com.UdeaFood_Back.Repository.IProductoRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +18,34 @@ import java.util.List;
 public class ProductoService {
 
     private final IProductoRepository iProductoRepository;
+    private final IImagenRepository iImageRepository;
 
 
-    public void crearProducto(Producto producto){
+    public void crearProducto(ProductoDTO productoDTO) {
+
+        Producto producto = new Producto();
+        producto.setNombre(productoDTO.getNombre());
+        producto.setDescripcion(productoDTO.getDescripcion());
+        producto.setPrecio(productoDTO.getPrecio());
+        producto.setDisponibilidad(productoDTO.getDisponibilidad());
+
+        // CAMBIAR POR EL ID DE UNA TIENDA QUE EXISTA
+        Tienda tienda = new Tienda();
+        tienda.setId(1);
+
+        producto.setSeccion(productoDTO.getSeccion());
+        producto.setCategorias(productoDTO.getCategoria());
+
+        if (productoDTO.getFoto() != null) {
+
+            ImagenProducto imagen = new ImagenProducto();
+            imagen.setProducto(producto);
+            imagen.setImagen(productoDTO.getFoto());
+            iImageRepository.save(imagen);
+
+        } else {
+            System.out.println("############################################################################################No hay fotos");
+        }
         iProductoRepository.save(producto);
     }
 
