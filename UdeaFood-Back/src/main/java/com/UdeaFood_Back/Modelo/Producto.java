@@ -1,6 +1,7 @@
 package com.UdeaFood_Back.Modelo;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,4 +50,14 @@ public class Producto {
             inverseJoinColumns = @JoinColumn(name = "idCategoria", referencedColumnName = "id_categoria")
     )
     private List<Categoria> categorias;
+
+    /*@OneToOne
+    @JoinColumn(name = "foto", referencedColumnName = "id")
+    private ImagenProducto foto;*/
+
+    @OneToOne(mappedBy = "producto", fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private ImagenProducto imagen;
+
+
 }
