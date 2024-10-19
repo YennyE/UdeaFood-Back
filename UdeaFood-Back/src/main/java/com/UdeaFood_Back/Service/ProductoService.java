@@ -40,7 +40,7 @@ public class ProductoService {
 
             ImagenProducto imagen = new ImagenProducto();
             imagen.setProducto(producto);
-            imagen.setImagen(productoDTO.getFoto());
+            imagen.setImagen(productoDTO.getFoto().getBytes());
             iImageRepository.save(imagen);
 
         } else {
@@ -54,20 +54,26 @@ public class ProductoService {
         return iProductoRepository.findAllByNombreContaining(nombre);
     }
 
-    public List<Producto> obtenerTodosLosProductos(String categoria) {
-        List<Producto> producto =  iProductoRepository.findAll();
-        List<Producto> productosCategoria = new ArrayList<>();
-        for(Producto p: producto){
+    public List<ProductoDTO> obtenerTodosLosProductos(String categoria) {
+        List<Producto> productos = iProductoRepository.findAll();
+        List<ProductoDTO> productosDTO = new ArrayList<>();
+
+        for (Producto p : productos) {
             List<Categoria> categorias = p.getCategorias();
-            for(Categoria c: categorias){
-                if(c.getNombreCategoria().toLowerCase().contains(categoria.toLowerCase())){
-                    productosCategoria.add(p);
+
+            for (Categoria c : categorias) {
+                if (c.getNombreCategoria().toLowerCase().contains(categoria.toLowerCase())) {
+                    byte[] foto = (p.getImagen() != null) ? p.getImagen().getImagen() : null;
+                    ProductoDTO productoDTO = new ProductoDTO(
+                            p.getId(), p.getNombre(), p.getDescripcion(), p.getPrecio(),
+                            p.getDisponibilidad(), foto, p.getSeccion(), p.getCategorias()
+                    );
+                    productosDTO.add(productoDTO);
                 }
             }
         }
 
-        return productosCategoria;
-
+        return productosDTO;
     }
     // para el tipo de tienda
    // public List<Producto>obtenerProductosPorTipoTienda(String tipoTienda){

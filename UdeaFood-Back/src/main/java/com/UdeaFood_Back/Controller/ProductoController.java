@@ -41,7 +41,7 @@ public class ProductoController {
     }
 
     @GetMapping("/obtenerTodos/{categoria}")
-    public ResponseEntity<List<Producto>> obtenerTodosLosProductos(@PathVariable String categoria) {
+    public ResponseEntity<List<ProductoDTO>> obtenerTodosLosProductos(@PathVariable String categoria) {
         return ResponseEntity.ok(productoService.obtenerTodosLosProductos(categoria));
     }
     //para tipo de tieda
