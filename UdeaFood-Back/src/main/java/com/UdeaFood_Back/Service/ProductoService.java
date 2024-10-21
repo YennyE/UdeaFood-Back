@@ -40,7 +40,7 @@ public class ProductoService {
 
             ImagenProducto imagen = new ImagenProducto();
             imagen.setProducto(producto);
-            imagen.setImagen(productoDTO.getFoto().getBytes());
+            imagen.setImagen(productoDTO.getFoto());
             iImageRepository.save(imagen);
 
         } else {

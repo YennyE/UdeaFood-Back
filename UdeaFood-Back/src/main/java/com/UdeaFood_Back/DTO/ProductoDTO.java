@@ -19,7 +19,7 @@ public class ProductoDTO {
     private Float precio;
     private String disponibilidad;
 
-    private String foto;
+    private byte[] foto;
 
     private Seccion seccion;
     private List<Categoria> categoria;
@@ -36,9 +36,7 @@ public class ProductoDTO {
         this.descripcion = descripcion;
         this.precio = precio;
         this.disponibilidad = disponibilidad;
-        if (foto != null) {
-            this.foto = Base64.getEncoder().encodeToString(foto);
-        }
+        this.foto = foto;
         this.seccion = seccion;
         this.categoria = categoria;
     }
