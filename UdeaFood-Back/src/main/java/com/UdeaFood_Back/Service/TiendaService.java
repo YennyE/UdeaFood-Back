@@ -1,5 +1,6 @@
 package com.UdeaFood_Back.Service;
 
+import com.UdeaFood_Back.DTO.TiendaRequest;
 import com.UdeaFood_Back.Modelo.Seccion;
 import com.UdeaFood_Back.Modelo.Tienda;
 import com.UdeaFood_Back.Modelo.TipoTienda;
@@ -22,7 +23,9 @@ public class TiendaService {
 
 
 
-    public void crear_tienda (Tienda tienda){
+    public void crear_tienda (TiendaRequest tiendaRequest){
+
+        Tienda tienda = mapToTienda(tiendaRequest);
         itiendaRepository.save(tienda);
 
         Seccion seccion = new Seccion();
@@ -31,11 +34,37 @@ public class TiendaService {
         seccion.setProductos(Collections.emptyList());
         iSeccionRepository.save(seccion);
     }
-    //Metodo para obtener tiendas por tipo de tienda
+
+
+    // Convierte un objeto de tipo TiendaRequest a un objeto de tipo Tienda
+    private Tienda mapToTienda(TiendaRequest tiendaRequest) {
+        Tienda tienda = new Tienda();
+        tienda.setNombre(tiendaRequest.getNombre());
+        tienda.setDescripcion(tiendaRequest.getDescripcion());
+        tienda.setUbicacion(tiendaRequest.getUbicacion());
+        tienda.setFoto(tiendaRequest.getFoto());
+        tienda.setCorreo(tiendaRequest.getCorreo());
+        tienda.setUsuario(tiendaRequest.getUsuario());
+        tienda.setClave(tiendaRequest.getClave());
+        tienda.setDomicilio(tiendaRequest.getDomicilio());
+        tienda.setContacto(tiendaRequest.getContacto());
+        tienda.setTipoTienda(tiendaRequest.getTipoTienda());
+
+        tienda.setCalificacion(0.0F);
+        tienda.setNumeroCalificaciones(0);
+        return tienda;
+    }
+
+
+
+
+    // Obtener tiendas por tipo de tienda
     public List<Tienda> getTiendasByTipoTienda(TipoTienda tipoTienda){
         return itiendaRepository.findByTipoTienda(tipoTienda);
     }
-    //Metodo para obtener todas las tiendas
+
+
+    // Obtener todas las tiendas
    public List<Tienda> getAllTiendas(){
         return itiendaRepository.findAll();
     }
