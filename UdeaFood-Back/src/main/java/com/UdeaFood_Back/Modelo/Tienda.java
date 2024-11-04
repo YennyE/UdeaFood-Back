@@ -32,6 +32,13 @@ public class Tienda {
     private byte[] foto;
 
 
+    @Column(name="calificacion")
+    private Float calificacion;
+
+    @Column(name="numero_calificaciones")
+    private Integer numeroCalificaciones;
+
+
 
     @Column(name = "correo", nullable = false, unique = true)
     private String correo;

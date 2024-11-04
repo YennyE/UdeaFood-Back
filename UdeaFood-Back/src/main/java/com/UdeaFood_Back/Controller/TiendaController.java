@@ -1,5 +1,6 @@
 package com.UdeaFood_Back.Controller;
 
+import com.UdeaFood_Back.DTO.TiendaRequest;
 import com.UdeaFood_Back.Modelo.Tienda;
 import com.UdeaFood_Back.Modelo.TipoTienda;
 import com.UdeaFood_Back.Service.TiendaService;
@@ -30,9 +31,9 @@ public class TiendaController {
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @PostMapping("/crearTienda")
-    public ResponseEntity<String> crearTienda(@RequestBody Tienda tienda) {
+    public ResponseEntity<String> crearTienda(@RequestBody TiendaRequest tiendaRequest) {
         try {
-            tiendaService.crear_tienda(tienda);
+            tiendaService.crear_tienda(tiendaRequest);
             return ResponseEntity.ok("Tienda creada exitosamente");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Solicitud incorrecta: " + e.getMessage());
