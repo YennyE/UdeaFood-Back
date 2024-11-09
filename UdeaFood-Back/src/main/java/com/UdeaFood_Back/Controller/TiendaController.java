@@ -58,5 +58,11 @@ public class TiendaController {
         return ResponseEntity.ok(tiendas);
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<Tienda> getTiendaById(@PathVariable Integer id){
+        Tienda tienda = tiendaService.getTiendaById(id);
+        return ResponseEntity.ok(tienda);
+    }
+
 
 }

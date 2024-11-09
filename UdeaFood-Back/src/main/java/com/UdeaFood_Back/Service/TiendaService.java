@@ -69,4 +69,7 @@ public class TiendaService {
         return itiendaRepository.findAll();
     }
 
+    public Tienda getTiendaById(Integer id) {
+        return itiendaRepository.findById(id).orElse(null);
+    }
 }
