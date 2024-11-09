@@ -13,4 +13,6 @@ public interface ItiendaRepository extends JpaRepository<Tienda, Integer> {
     //Método para obtener tiendas por tipo de tienda
     List<Tienda> findByTipoTienda(TipoTienda tipoTienda);
 
+    Tienda findTiendaByCorreo(String correo);
+
 }
