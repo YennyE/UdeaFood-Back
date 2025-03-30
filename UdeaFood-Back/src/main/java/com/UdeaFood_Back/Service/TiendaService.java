@@ -72,4 +72,9 @@ public class TiendaService {
     public Tienda getTiendaById(Integer id) {
         return itiendaRepository.findById(id).orElse(null);
     }
+
+    public void guardarTienda(Tienda tienda){
+        itiendaRepository.save(tienda);
+    }
+
 }
