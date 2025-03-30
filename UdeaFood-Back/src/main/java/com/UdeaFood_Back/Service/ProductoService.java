@@ -30,8 +30,6 @@ public class ProductoService {
         producto.setDisponibilidad(productoDTO.getDisponibilidad());
 
         // CAMBIAR POR EL ID DE UNA TIENDA QUE EXISTA
-        Tienda tienda = new Tienda();
-        tienda.setId(1);
 
         producto.setSeccion(productoDTO.getSeccion());
         producto.setCategorias(productoDTO.getCategoria());

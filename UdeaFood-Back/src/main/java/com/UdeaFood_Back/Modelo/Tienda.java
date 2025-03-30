@@ -63,4 +63,9 @@ public class Tienda {
     @JsonManagedReference
     private List<Seccion> secciones;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_horario", referencedColumnName = "id")
+    @JsonManagedReference
+    private Horario horario;
+
 }

@@ -55,7 +55,7 @@ public class Producto {
     @JoinColumn(name = "foto", referencedColumnName = "id")
     private ImagenProducto foto;*/
 
-    @OneToOne(mappedBy = "producto", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "producto", fetch = FetchType.EAGER)
     @JsonManagedReference
     private ImagenProducto imagen;
 
