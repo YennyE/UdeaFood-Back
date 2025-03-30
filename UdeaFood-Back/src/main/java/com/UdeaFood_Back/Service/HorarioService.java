@@ -41,4 +41,8 @@ public class HorarioService {
         tiendaService.guardarTienda(tienda);
 
     }
+
+    public void borrarHorario(Integer idTienda){
+
+    }
 }

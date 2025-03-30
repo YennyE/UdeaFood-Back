@@ -6,6 +6,7 @@ import com.UdeaFood_Back.Modelo.Tienda;
 import com.UdeaFood_Back.Modelo.TipoTienda;
 import com.UdeaFood_Back.Repository.ISeccionRepository;
 import com.UdeaFood_Back.Repository.ItiendaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -74,6 +75,14 @@ public class TiendaService {
     }
 
     public void guardarTienda(Tienda tienda){
+        itiendaRepository.save(tienda);
+    }
+
+    public void borrarHorario(Integer idTienda){
+        Tienda tienda = itiendaRepository.findById(idTienda)
+                .orElseThrow(() -> new EntityNotFoundException("Tienda no encontrada"));
+
+        tienda.setHorario(null);
         itiendaRepository.save(tienda);
     }
 
