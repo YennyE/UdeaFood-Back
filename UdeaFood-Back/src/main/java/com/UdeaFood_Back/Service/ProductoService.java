@@ -1,5 +1,6 @@
 package com.UdeaFood_Back.Service;
 
+import com.UdeaFood_Back.DTO.ImagenProductoDTO;
 import com.UdeaFood_Back.DTO.ProductoDTO;
 import com.UdeaFood_Back.Modelo.*;
 import com.UdeaFood_Back.Repository.IImagenRepository;
@@ -32,13 +33,13 @@ public class ProductoService {
         // CAMBIAR POR EL ID DE UNA TIENDA QUE EXISTA
 
         producto.setSeccion(productoDTO.getSeccion());
-        producto.setCategorias(productoDTO.getCategoria());
+        producto.setCategorias(productoDTO.getCategorias());
 
-        if (productoDTO.getFoto() != null) {
+        if (productoDTO.getImagen() != null) {
 
             ImagenProducto imagen = new ImagenProducto();
             imagen.setProducto(producto);
-            imagen.setImagen(productoDTO.getFoto());
+            imagen.setImagen(productoDTO.getImagen().getImagen());
             iImageRepository.save(imagen);
 
         } else {
@@ -54,6 +55,7 @@ public class ProductoService {
 
     public List<ProductoDTO> obtenerTodosLosProductos(String categoria) {
         List<Producto> productos = iProductoRepository.findAll();
+
         List<ProductoDTO> productosDTO = new ArrayList<>();
 
         for (Producto p : productos) {
@@ -62,9 +64,11 @@ public class ProductoService {
             for (Categoria c : categorias) {
                 if (c.getNombreCategoria().toLowerCase().contains(categoria.toLowerCase())) {
                     byte[] foto = (p.getImagen() != null) ? p.getImagen().getImagen() : null;
+                    ImagenProductoDTO imagenProductoDTO = new ImagenProductoDTO();
+                    imagenProductoDTO.setImagen(foto);
                     ProductoDTO productoDTO = new ProductoDTO(
                             p.getId(), p.getNombre(), p.getDescripcion(), p.getPrecio(),
-                            p.getDisponibilidad(), foto, p.getSeccion(), p.getCategorias()
+                            p.getDisponibilidad(), imagenProductoDTO, p.getSeccion(), p.getCategorias()
                     );
                     productosDTO.add(productoDTO);
                 }
