@@ -5,7 +5,6 @@ import com.UdeaFood_Back.Modelo.Seccion;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Base64;
 import java.util.List;
 
 @Getter
@@ -19,10 +18,10 @@ public class ProductoDTO {
     private Float precio;
     private String disponibilidad;
 
-    private byte[] foto;
+    private ImagenProductoDTO imagen;
 
     private Seccion seccion;
-    private List<Categoria> categoria;
+    private List<Categoria> categorias;
 
 
 
@@ -30,15 +29,15 @@ public class ProductoDTO {
 
     }
 
-    public ProductoDTO(Integer id, String nombre, String descripcion, Float precio, String disponibilidad, byte[] foto, Seccion seccion, List<Categoria> categoria) {
+    public ProductoDTO(Integer id, String nombre, String descripcion, Float precio, String disponibilidad, ImagenProductoDTO imagen, Seccion seccion, List<Categoria> categorias) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.disponibilidad = disponibilidad;
-        this.foto = foto;
+        this.imagen = imagen;
         this.seccion = seccion;
-        this.categoria = categoria;
+        this.categorias = categorias;
     }
 
 }

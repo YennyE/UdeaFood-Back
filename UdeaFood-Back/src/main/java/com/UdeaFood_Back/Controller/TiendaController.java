@@ -7,6 +7,7 @@ import com.UdeaFood_Back.Service.TiendaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -63,6 +64,20 @@ public class TiendaController {
         Tienda tienda = tiendaService.getTiendaById(id);
         return ResponseEntity.ok(tienda);
     }
+
+    @DeleteMapping("/horario/{idTienda}")
+    public ResponseEntity<Void> eliminarHorario(@PathVariable Integer idTienda) {
+        try {
+            tiendaService.borrarHorario(idTienda);
+            return ResponseEntity.noContent().build();
+        } catch (EntityNotFoundException ex) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception ex) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+
 
 
 }
