@@ -79,5 +79,13 @@ public class ProductoService {
    // public List<Producto>obtenerProductosPorTipoTienda(String tipoTienda){
      //   return iProductoRepository.findByTipoTienda(tipoTienda);
     //}
+    public void eliminarProducto(Integer id){
+        if (iProductoRepository.existsById(id)){
+            iProductoRepository.deleteById(id);
+        }
+        else {
+            throw new RuntimeException("El producto con ID " + id + "no existe.");
+        }
+    }
 
 }

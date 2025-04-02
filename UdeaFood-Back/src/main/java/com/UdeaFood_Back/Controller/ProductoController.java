@@ -49,5 +49,20 @@ public class ProductoController {
     //public List<Producto>obtenerProductosPorTipoTienda(@PathVariable String tipoTienda){
       //  return productoService.obtenerProductosPorTipoTienda(tipoTienda);
     //}
+    @Operation(summary = "Eliminar un producto", description = "Elimina un producto por su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Producto eliminado exitosamente"),
+            @ApiResponse(responseCode = "404", description = "Producto no encontrado"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<String>eliminarProducto(@PathVariable Integer id){
+        try {
+            productoService.eliminarProducto(id);
+            return ResponseEntity.ok("Producto eliminado");
+        }catch (RuntimeException e){
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
+    }
 
 }
