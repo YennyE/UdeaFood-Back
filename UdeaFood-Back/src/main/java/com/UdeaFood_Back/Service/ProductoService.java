@@ -75,17 +75,29 @@ public class ProductoService {
 
         return productosDTO;
     }
-    // para el tipo de tienda
-   // public List<Producto>obtenerProductosPorTipoTienda(String tipoTienda){
-     //   return iProductoRepository.findByTipoTienda(tipoTienda);
-    //}
-    public void eliminarProducto(Integer id){
-        if (iProductoRepository.existsById(id)){
-            iProductoRepository.deleteById(id);
+
+
+    public void eliminarProducto(Integer id) {
+        Producto producto = iProductoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("El producto con ID " + id + " no existe."));
+
+        // Limpiar relaciones con categorías
+        producto.getCategorias().clear();
+
+        // Desvincular la relación con Sección
+        producto.setSeccion(null);
+        iProductoRepository.save(producto);
+
+        // Eliminar la imagen si existe
+        if (producto.getImagen() != null) {
+            iImageRepository.delete(producto.getImagen());
         }
-        else {
-            throw new RuntimeException("El producto con ID " + id + "no existe.");
-        }
+
+        // Eliminar el producto
+        iProductoRepository.delete(producto);
     }
+
+
+
 
 }

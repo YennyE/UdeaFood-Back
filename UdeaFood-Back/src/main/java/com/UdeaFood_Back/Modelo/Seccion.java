@@ -30,7 +30,7 @@ public class Seccion {
 
 
     // Cambiamos mappedBy a "seccion" porque es el atributo en Producto
-    @OneToMany(mappedBy = "seccion", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "seccion", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Producto> productos;
 }

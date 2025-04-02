@@ -43,7 +43,12 @@ public class Producto {
 
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "producto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private ImagenProducto imagen;
+
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "categoria_producto",
             joinColumns = @JoinColumn(name = "id_producto", referencedColumnName = "id"),
@@ -51,13 +56,6 @@ public class Producto {
     )
     private List<Categoria> categorias;
 
-    /*@OneToOne
-    @JoinColumn(name = "foto", referencedColumnName = "id")
-    private ImagenProducto foto;*/
-
-    @OneToOne(mappedBy = "producto", fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private ImagenProducto imagen;
 
 
 }
