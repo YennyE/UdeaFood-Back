@@ -10,10 +10,4 @@ import java.util.List;
 public interface IProductoRepository extends JpaRepository<Producto, Integer>{
 
     List<Producto> findAllByNombreContaining(String nombre);
-    //List<Producto> findAllByNombreCategoria(String nombreCategoria);
-    //List<Producto> findAllByCategoriasNombreCategoriaContaining(String nombreCategoria);
-
-    //para producto por tipo de tienda
-    //@Query("SELECT p FROM Producto p JOIN p.seccion s JOIN s.tienda t WHERE t.tipoTienda = :tipoTienda")
-    //List<Producto> findByTipoTienda(@Param(tipoTienda) String tipoTienda);
 }
