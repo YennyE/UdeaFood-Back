@@ -98,6 +98,29 @@ public class ProductoService {
         // Eliminar el producto
         iProductoRepository.delete(producto);
     }
+    public void actualizarProducto(Integer id, ProductoDTO productoDTO){
+        Producto producto = iProductoRepository.findById(id).
+                orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
+        producto.setNombre(productoDTO.getNombre());
+        producto.setDescripcion(productoDTO.getDescripcion());
+        producto.setPrecio(productoDTO.getPrecio());
+
+        producto.setDisponibilidad(productoDTO.getDisponibilidad());
+        producto.setSeccion(productoDTO.getSeccion());
+
+        if (productoDTO.getImagen() != null) {
+
+            ImagenProducto imagen = new ImagenProducto();
+            imagen.setProducto(producto);
+            imagen.setImagen(productoDTO.getImagen().getImagen());
+            iImageRepository.save(imagen);
+
+        } else {
+            System.out.println("############################################################################################No hay fotos");
+        }
+        iProductoRepository.save(producto);
+    }
 
 
 

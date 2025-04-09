@@ -64,5 +64,23 @@ public class ProductoController {
             return ResponseEntity.status(404).body(e.getMessage());
         }
     }
+    @Operation(summary = "Actualizar un producto", description = "Actualiza los datos de un producto existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Producto actualizado exitosamente"),
+            @ApiResponse(responseCode = "404", description = "Producto no encontrado"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<String>actualizarProducto(@PathVariable Integer id,
+                                                    @RequestBody ProductoDTO productoDTO){
+        try {
+            productoService.actualizarProducto(id,productoDTO);
+            return ResponseEntity.ok("Producto actualizado correctamente");
+        }catch (RuntimeException e){
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
+
+    }
+
 
 }
