@@ -1,9 +1,12 @@
 package com.UdeaFood_Back.Service;
 
+import com.UdeaFood_Back.DTO.MetodoPagoDTO;
 import com.UdeaFood_Back.DTO.TiendaRequest;
+import com.UdeaFood_Back.Modelo.MetodoPago;
 import com.UdeaFood_Back.Modelo.Seccion;
 import com.UdeaFood_Back.Modelo.Tienda;
 import com.UdeaFood_Back.Modelo.TipoTienda;
+import com.UdeaFood_Back.Repository.IMetodoPagoRepository;
 import com.UdeaFood_Back.Repository.ISeccionRepository;
 import com.UdeaFood_Back.Repository.ItiendaRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -21,7 +24,7 @@ public class TiendaService {
 
     private final ItiendaRepository itiendaRepository;
     private final ISeccionRepository iSeccionRepository;
-
+    private final IMetodoPagoRepository metodoPagoRepository;
 
 
     public void crear_tienda (TiendaRequest tiendaRequest){
@@ -86,4 +89,19 @@ public class TiendaService {
         itiendaRepository.save(tienda);
     }
 
+    public void agregarMetodoPago(Integer idTienda, MetodoPagoDTO metodoPagoDTO) {
+        Tienda tienda = itiendaRepository.findById(idTienda)
+                .orElseThrow(() -> new EntityNotFoundException("Tienda no encontrada"));
+
+        MetodoPago metodoPago = new MetodoPago();
+        metodoPago.setTipo(metodoPagoDTO.getTipo());
+        metodoPago.setDetalles(metodoPagoDTO.getDetalles());
+        metodoPago.setTienda(tienda);
+
+        metodoPagoRepository.save(metodoPago);
+    }
+
+    public void eliminarMetodoPago(Integer idTienda, Integer idMetodo) {
+        metodoPagoRepository.deleteByIdAndTiendaId(idMetodo, idTienda);
+    }
 }

@@ -68,4 +68,8 @@ public class Tienda {
     @JsonManagedReference
     private Horario horario;
 
+    @OneToMany(mappedBy = "tienda", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<MetodoPago> metodosPago;
+
 }
