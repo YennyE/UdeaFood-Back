@@ -33,6 +33,11 @@ public class ProductoController {
 
         return ResponseEntity.ok("Producto creado");
     }
+
+    @GetMapping("obtener/{id}")
+    public ResponseEntity<Producto> obtenerProductoPorId(@PathVariable Integer id) {
+        return ResponseEntity.ok(productoService.obtenerProductoPorId(id));
+    }
     @GetMapping("/consultar/{nombre}")
     public ResponseEntity<List<Producto>> crearProducto(@PathVariable String nombre) {
         return ResponseEntity.ok(productoService.consultarPorNombre(nombre));
