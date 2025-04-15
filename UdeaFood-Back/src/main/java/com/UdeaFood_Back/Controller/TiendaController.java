@@ -76,6 +76,20 @@ public class TiendaController {
             return ResponseEntity.internalServerError().build();
         }
     }
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<String>actualizarTienda(@PathVariable Integer id, @RequestBody TiendaRequest tiendaRequest){
+        try {
+            tiendaService.actualizarTienda(id, tiendaRequest);
+            return ResponseEntity.ok("Tienda actualizada exitosamente");
+        }catch (EntityNotFoundException  e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tienda no encontrada");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al actualizar la tienda");
+        }
+    }
+
+
+
 
 
 
