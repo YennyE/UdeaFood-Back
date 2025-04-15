@@ -85,5 +85,23 @@ public class TiendaService {
         tienda.setHorario(null);
         itiendaRepository.save(tienda);
     }
+    public void actualizarTienda(Integer id, TiendaRequest tiendaRequest){
+        Tienda tienda = itiendaRepository.findById(id)
+                .orElseThrow(()->new EntityNotFoundException("Tienda no encontrada"));
+
+        tienda.setNombre(tiendaRequest.getNombre());
+        tienda.setDescripcion(tiendaRequest.getDescripcion());
+        tienda.setUbicacion(tiendaRequest.getUbicacion());
+        tienda.setFoto(tiendaRequest.getFoto());
+        tienda.setCorreo(tiendaRequest.getCorreo());
+        tienda.setUsuario(tiendaRequest.getUsuario());
+        tienda.setClave(tiendaRequest.getClave());
+        tienda.setDomicilio(tiendaRequest.getDomicilio());
+        tienda.setContacto(tiendaRequest.getContacto());
+        tienda.setTipoTienda(tiendaRequest.getTipoTienda());
+
+        itiendaRepository.save(tienda);
+
+    }
 
 }
