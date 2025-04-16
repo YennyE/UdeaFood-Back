@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -85,6 +86,7 @@ public class TiendaService {
         tienda.setHorario(null);
         itiendaRepository.save(tienda);
     }
+
     public void actualizarTienda(Integer id, TiendaRequest tiendaRequest){
         Tienda tienda = itiendaRepository.findById(id)
                 .orElseThrow(()->new EntityNotFoundException("Tienda no encontrada"));
@@ -92,7 +94,9 @@ public class TiendaService {
         tienda.setNombre(tiendaRequest.getNombre());
         tienda.setDescripcion(tiendaRequest.getDescripcion());
         tienda.setUbicacion(tiendaRequest.getUbicacion());
-        tienda.setFoto(tiendaRequest.getFoto());
+        if (tiendaRequest.getFoto() != null && tiendaRequest.getFoto().length > 0) {
+            tienda.setFoto(tiendaRequest.getFoto()); // Actualizar con la nueva foto
+        }
         tienda.setCorreo(tiendaRequest.getCorreo());
         tienda.setUsuario(tiendaRequest.getUsuario());
         tienda.setClave(tiendaRequest.getClave());
