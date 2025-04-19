@@ -30,7 +30,6 @@ public class ProductoService {
         producto.setPrecio(productoDTO.getPrecio());
         producto.setDisponibilidad(productoDTO.getDisponibilidad());
 
-        // CAMBIAR POR EL ID DE UNA TIENDA QUE EXISTA
 
         producto.setSeccion(productoDTO.getSeccion());
         producto.setCategorias(productoDTO.getCategorias());
@@ -42,20 +41,20 @@ public class ProductoService {
             imagen.setImagen(productoDTO.getImagen().getImagen());
             iImageRepository.save(imagen);
 
-        } else {
-            System.out.println("############################################################################################No hay fotos");
         }
         iProductoRepository.save(producto);
     }
+
 
 
     public List<Producto> consultarPorNombre(String nombre) {
         return iProductoRepository.findAllByNombreContaining(nombre);
     }
 
+
+
     public List<ProductoDTO> obtenerTodosLosProductos(String categoria) {
         List<Producto> productos = iProductoRepository.findAll();
-
         List<ProductoDTO> productosDTO = new ArrayList<>();
 
         for (Producto p : productos) {
@@ -79,6 +78,7 @@ public class ProductoService {
     }
 
 
+
     public void eliminarProducto(Integer id) {
         Producto producto = iProductoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("El producto con ID " + id + " no existe."));
@@ -98,7 +98,10 @@ public class ProductoService {
         // Eliminar el producto
         iProductoRepository.delete(producto);
     }
-    public void actualizarProducto(Integer id, ProductoDTO productoDTO){
+
+
+
+    public void actualizarProducto(Integer id, ProductoDTO productoDTO) {
         Producto producto = iProductoRepository.findById(id).
                 orElseThrow(() -> new RuntimeException("Producto no encontrado"));
 
@@ -115,13 +118,13 @@ public class ProductoService {
             imagen.setImagen(productoDTO.getImagen().getImagen());
             iImageRepository.save(imagen);
 
-        } else {
-            System.out.println("############################################################################################No hay fotos");
         }
         iProductoRepository.save(producto);
     }
 
 
-
-
+    public Producto obtenerProductoPorId(Integer id) {
+        return iProductoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("El producto con ID " + id + " no existe."));
+    }
 }
