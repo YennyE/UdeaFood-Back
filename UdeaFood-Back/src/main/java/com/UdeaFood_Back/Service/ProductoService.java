@@ -133,6 +133,10 @@ public class ProductoService {
         if (productoDTO.getImagen() != null) {
 
             ImagenProducto imagen = iImageRepository.findByProducto(producto);
+            if (imagen == null) {
+                imagen = new ImagenProducto();
+                imagen.setProducto(producto);
+            }
             imagen.setImagen(productoDTO.getImagen().getImagen());
             iImageRepository.save(imagen);
 
