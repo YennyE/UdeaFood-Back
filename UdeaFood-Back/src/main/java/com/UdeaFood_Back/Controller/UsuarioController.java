@@ -1,5 +1,6 @@
 package com.UdeaFood_Back.Controller;
 
+import com.UdeaFood_Back.DTO.LoginRequest;
 import com.UdeaFood_Back.Modelo.Usuario;
 import com.UdeaFood_Back.Service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,6 +31,15 @@ public class UsuarioController {
             return ResponseEntity.ok("Usuario creado exitosamente");
         } catch (RuntimeException e) {
             return ResponseEntity.status(400).body("Error al crear el usuario: " + e.getMessage());
+        }
+    }
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        try {
+            Usuario usuario = usuarioService.login(loginRequest);
+            return ResponseEntity.ok(usuario);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(401).body("Credenciales inválidas");
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.UdeaFood_Back.Service;
 
 
+import com.UdeaFood_Back.DTO.LoginRequest;
 import com.UdeaFood_Back.Modelo.Usuario;
 import com.UdeaFood_Back.Repository.IUsuarioRepository;
 import jakarta.transaction.Transactional;
@@ -20,5 +21,14 @@ public class UsuarioService {
             throw new RuntimeException("El correo ya está en uso");
         }
         iUsuarioRepository.save(usuario);
+    }
+    public Usuario login(LoginRequest loginRequest) {
+        Usuario usuario = iUsuarioRepository.findUsuarioByCorreo(loginRequest.getCorreo());
+
+        if (usuario != null && usuario.getClave().equals(loginRequest.getClave())) {
+            return usuario;
+        } else {
+            throw new RuntimeException("Credenciales inválidas");
+        }
     }
 }
