@@ -3,6 +3,7 @@ package com.UdeaFood_Back.Service;
 import com.UdeaFood_Back.DTO.ImagenProductoDTO;
 import com.UdeaFood_Back.DTO.ProductoDTO;
 import com.UdeaFood_Back.Modelo.*;
+import com.UdeaFood_Back.Repository.ICategoriaRepository;
 import com.UdeaFood_Back.Repository.IImagenRepository;
 import com.UdeaFood_Back.Repository.IProductoRepository;
 import jakarta.transaction.Transactional;
@@ -20,6 +21,7 @@ public class ProductoService {
 
     private final IProductoRepository iProductoRepository;
     private final IImagenRepository iImageRepository;
+    private final ICategoriaRepository iCategoriaRepository;
 
 
     public void crearProducto(ProductoDTO productoDTO) {
@@ -33,6 +35,22 @@ public class ProductoService {
 
         producto.setSeccion(productoDTO.getSeccion());
         producto.setCategorias(productoDTO.getCategorias());
+
+        if (productoDTO.getCategorias() != null && !productoDTO.getCategorias().isEmpty()) {
+            List<Integer> categoriaIds = productoDTO.getCategorias().stream()
+                    .map(Categoria::getIdCategoria)
+                    .toList();
+
+            List<Categoria> listaCategorias = iCategoriaRepository.findAllById(categoriaIds);
+
+            if (listaCategorias.size() != categoriaIds.size()) {
+                throw new RuntimeException("Algunas categorías no existen.");
+            }
+
+            producto.setCategorias(listaCategorias);
+        } else {
+            throw new RuntimeException("No se seleccionaron categorias.");
+        }
 
         if (productoDTO.getImagen() != null) {
 
@@ -115,6 +133,10 @@ public class ProductoService {
         if (productoDTO.getImagen() != null) {
 
             ImagenProducto imagen = iImageRepository.findByProducto(producto);
+            if (imagen == null) {
+                imagen = new ImagenProducto();
+                imagen.setProducto(producto);
+            }
             imagen.setImagen(productoDTO.getImagen().getImagen());
             iImageRepository.save(imagen);
 
