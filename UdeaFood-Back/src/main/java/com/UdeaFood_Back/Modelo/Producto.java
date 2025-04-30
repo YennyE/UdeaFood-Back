@@ -1,6 +1,7 @@
 package com.UdeaFood_Back.Modelo;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -55,5 +56,9 @@ public class Producto {
             inverseJoinColumns = @JoinColumn(name = "idCategoria", referencedColumnName = "id_categoria")
     )
     private List<Categoria> categorias;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "producto",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    List<ProductoPedido> productoPedidos;
 
 }
