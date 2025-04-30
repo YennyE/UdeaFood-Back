@@ -1,7 +1,9 @@
 package com.UdeaFood_Back.Controller;
 
 import com.UdeaFood_Back.DTO.LoginRequest;
+
 import com.UdeaFood_Back.DTO.UsuarioRequest;
+
 import com.UdeaFood_Back.Modelo.Usuario;
 import com.UdeaFood_Back.Service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -45,6 +47,7 @@ public class UsuarioController {
             return ResponseEntity.status(401).body("Credenciales inválidas");
         }
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> getUsuarioById(@PathVariable Integer id) {
