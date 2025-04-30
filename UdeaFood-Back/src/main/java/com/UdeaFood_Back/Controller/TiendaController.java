@@ -3,6 +3,7 @@ package com.UdeaFood_Back.Controller;
 import com.UdeaFood_Back.DTO.TiendaRequest;
 import com.UdeaFood_Back.Modelo.Tienda;
 import com.UdeaFood_Back.Modelo.TipoTienda;
+import com.UdeaFood_Back.Modelo.Usuario;
 import com.UdeaFood_Back.Service.TiendaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -76,6 +77,7 @@ public class TiendaController {
             return ResponseEntity.internalServerError().build();
         }
     }
+
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<String>actualizarTienda(@PathVariable Integer id, @RequestBody TiendaRequest tiendaRequest){
         try {
@@ -87,11 +89,4 @@ public class TiendaController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al actualizar la tienda");
         }
     }
-
-
-
-
-
-
-
 }
