@@ -3,6 +3,7 @@ package com.UdeaFood_Back.Modelo;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,6 +36,11 @@ public class ProductoPedido {
 
     @Column(name = "precioUnitario",nullable = false)
     private Double precioUnitario;
+
+
+    @JsonManagedReference
+    @OneToOne(mappedBy = "productoPedido", cascade = CascadeType.ALL)
+    private Calificacion calificacion;
 
 
 

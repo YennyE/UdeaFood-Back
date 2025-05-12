@@ -61,4 +61,8 @@ public class Producto {
     @OneToMany(mappedBy = "producto",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     List<ProductoPedido> productoPedidos;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "producto",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    List<Calificacion> calificaciones;
+
 }
