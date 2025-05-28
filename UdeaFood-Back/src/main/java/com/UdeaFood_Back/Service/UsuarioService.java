@@ -4,7 +4,6 @@ package com.UdeaFood_Back.Service;
 import com.UdeaFood_Back.DTO.LoginRequest;
 
 import com.UdeaFood_Back.DTO.UsuarioRequest;
-import com.UdeaFood_Back.Modelo.Tienda;
 
 import com.UdeaFood_Back.Modelo.Usuario;
 import com.UdeaFood_Back.Repository.IUsuarioRepository;

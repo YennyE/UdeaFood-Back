@@ -1,6 +1,7 @@
 package com.UdeaFood_Back.Controller;
 
 import com.UdeaFood_Back.DTO.CalificacionRequest;
+import com.UdeaFood_Back.DTO.CalificacionResponse;
 import com.UdeaFood_Back.Modelo.Calificacion;
 import com.UdeaFood_Back.Service.CalificacionService;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +19,12 @@ public class CalificacionController {
 
 
     @GetMapping("/{idProducto}")
-    public List<Calificacion> getCalificaciones(@PathVariable Integer idProducto){
+    public List<CalificacionResponse> getCalificaciones(@PathVariable Integer idProducto){
         return calificacionService.getCalificaciones(idProducto);
     }
 
     @PostMapping()
-    public Calificacion calificar(@RequestBody CalificacionRequest calificacionRequest){
+    public CalificacionResponse calificar(@RequestBody CalificacionRequest calificacionRequest){
         return calificacionService.calificar(calificacionRequest);
     }
 }

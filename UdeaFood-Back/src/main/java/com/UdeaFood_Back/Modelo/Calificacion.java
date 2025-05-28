@@ -1,6 +1,7 @@
 package com.UdeaFood_Back.Modelo;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,6 +35,7 @@ public class Calificacion {
     @JoinColumn(name = "id_producto_pedido", nullable = false, unique = true)
     private ProductoPedido productoPedido;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_producto", referencedColumnName = "id", nullable = false)
     Producto producto;
