@@ -23,7 +23,7 @@ public class CalificacionController {
     }
 
     @PostMapping()
-    public void calificar(@RequestBody CalificacionRequest calificacionRequest){
-        calificacionService.calificar(calificacionRequest);
+    public Calificacion calificar(@RequestBody CalificacionRequest calificacionRequest){
+        return calificacionService.calificar(calificacionRequest);
     }
 }

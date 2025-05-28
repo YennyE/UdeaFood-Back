@@ -19,8 +19,7 @@ import java.util.List;
 public class CalificacionService {
 
     private final ICalificacionRepository iCalificacionRepository;
-    // NO EXISTE TODAVÍA
-    private final IProductoPedidoRepository ppRepo;
+    private final IProductoPedidoRepository iProductoPedidoRepository;
 
 
 
@@ -35,7 +34,7 @@ public class CalificacionService {
 
     public Calificacion calificar(CalificacionRequest calificacionRequest) {
 
-        ProductoPedido productoPedido = ppRepo.findById(calificacionRequest.getIdProductoPedido())
+        ProductoPedido productoPedido = iProductoPedidoRepository.findById(calificacionRequest.getIdProductoPedido())
                 .orElseThrow(() -> new IllegalArgumentException("Compra de producto no encontrada"));
 
 
@@ -52,9 +51,10 @@ public class CalificacionService {
 
 
         Calificacion nuevaCalificacion = new Calificacion();
-        nuevaCalificacion.setProductoPedido(productoPedido);
         nuevaCalificacion.setCalificacion(calificacionRequest.getCalificacion());
         nuevaCalificacion.setComentario(calificacionRequest.getComentario());
+        nuevaCalificacion.setProductoPedido(productoPedido);
+        nuevaCalificacion.setProducto(productoPedido.getProducto());
         return iCalificacionRepository.save(nuevaCalificacion);
 
     }
