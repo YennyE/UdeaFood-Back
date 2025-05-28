@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.util.Date;
 
 @Entity
-@Table(name = "pedido")
+@Table(name = "calificacion")
 @Getter
 @Setter
 public class Calificacion {
@@ -17,7 +17,7 @@ public class Calificacion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "calificacion", nullable = false)
+    @Column(name = "calificacion", nullable = false, columnDefinition = "INT DEFAULT 0")
     private Integer calificacion;
 
     @Column(name="comentario", length = 1000)

@@ -6,6 +6,7 @@ import com.UdeaFood_Back.Modelo.Pedido;
 import com.UdeaFood_Back.Modelo.ProductoPedido;
 import com.UdeaFood_Back.Modelo.Usuario;
 import com.UdeaFood_Back.Repository.ICalificacionRepository;
+import com.UdeaFood_Back.Repository.IProductoPedidoRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class CalificacionService {
 
     private final ICalificacionRepository iCalificacionRepository;
     // NO EXISTE TODAVÍA
-    // private final IProductoPedidoRepository ppRepo;
+    private final IProductoPedidoRepository ppRepo;
 
 
 
@@ -32,20 +33,20 @@ public class CalificacionService {
 
 
 
-    public void calificar(CalificacionRequest calificacionRequest) {
-/*
+    public Calificacion calificar(CalificacionRequest calificacionRequest) {
+
         ProductoPedido productoPedido = ppRepo.findById(calificacionRequest.getIdProductoPedido())
                 .orElseThrow(() -> new IllegalArgumentException("Compra de producto no encontrada"));
 
 
-       // Pedido pedido = productoPedido.getPedido();
+        Pedido pedido = productoPedido.getPedido();
         Usuario usuario = pedido.getUsuario();
         if (!usuario.getId().equals(calificacionRequest.getIdUsuario())) {
             throw new IllegalStateException("Este usuario no compró ese artículo");
         }
 
 
-        if (iCalificacionRepository.existsByProductoPedido_Id( productoPedido.getId(). )) {
+        if (iCalificacionRepository.existsByProductoPedido_Id( productoPedido.getId() )) {
             throw new IllegalStateException("Ya dejaste reseña para esta compra");
         }
 
@@ -55,7 +56,7 @@ public class CalificacionService {
         nuevaCalificacion.setCalificacion(calificacionRequest.getCalificacion());
         nuevaCalificacion.setComentario(calificacionRequest.getComentario());
         return iCalificacionRepository.save(nuevaCalificacion);
-*/
+
     }
 
 

@@ -9,33 +9,35 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Producto-Pedido")
+@Table(name = "producto_pedido")
 @Getter
 @Setter
 
 public class ProductoPedido {
 
-    @EmbeddedId
-    private ProductoPedidoId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @MapsId("producto")
-    @JoinColumn(name = "id_Producto", referencedColumnName = "id", nullable = false)
-    @JsonIgnore
-    private Producto producto;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @MapsId("pedido")
-    @JoinColumn(name = "id_Pedido", referencedColumnName = "id", nullable = false)
-    @JsonBackReference
-    private Pedido pedido;
 
     @Column(name = "cantidad", nullable = false)
     private Integer cantidad;
 
     @Column(name = "precioUnitario",nullable = false)
     private Double precioUnitario;
+
+
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_Producto", referencedColumnName = "id", nullable = false)
+    @JsonIgnore
+    private Producto producto;
+
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_Pedido", referencedColumnName = "id", nullable = false)
+    @JsonBackReference
+    private Pedido pedido;
 
 
     @JsonManagedReference

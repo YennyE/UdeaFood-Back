@@ -4,9 +4,7 @@ import com.UdeaFood_Back.DTO.CalificacionRequest;
 import com.UdeaFood_Back.Modelo.Calificacion;
 import com.UdeaFood_Back.Service.CalificacionService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,11 +17,13 @@ public class CalificacionController {
     private final CalificacionService calificacionService;
 
 
-    public List<Calificacion> getCalificaciones(Integer idProducto){
+    @GetMapping("/{idProducto}")
+    public List<Calificacion> getCalificaciones(@PathVariable Integer idProducto){
         return calificacionService.getCalificaciones(idProducto);
     }
 
-    public void calificar(CalificacionRequest calificacionRequest){
+    @PostMapping()
+    public void calificar(@RequestBody CalificacionRequest calificacionRequest){
         calificacionService.calificar(calificacionRequest);
     }
 }
