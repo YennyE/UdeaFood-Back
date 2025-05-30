@@ -31,7 +31,7 @@ public class Calificacion {
 
 
     @JsonBackReference
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_producto_pedido", nullable = false, unique = true)
     private ProductoPedido productoPedido;
 

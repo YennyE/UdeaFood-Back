@@ -1,6 +1,5 @@
 package com.UdeaFood_Back.DTO;
 
-import com.UdeaFood_Back.Modelo.Producto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
