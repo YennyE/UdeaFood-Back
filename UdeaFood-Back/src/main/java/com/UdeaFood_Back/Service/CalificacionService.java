@@ -12,6 +12,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Transactional
@@ -70,6 +71,7 @@ public class CalificacionService {
         Calificacion nuevaCalificacion = new Calificacion();
         nuevaCalificacion.setCalificacion(calificacionRequest.getCalificacion());
         nuevaCalificacion.setComentario(calificacionRequest.getComentario());
+        nuevaCalificacion.setFecha(new Date());
         nuevaCalificacion.setPedido(pedido);
         nuevaCalificacion.setProducto(productoPedido.getProducto());
 
