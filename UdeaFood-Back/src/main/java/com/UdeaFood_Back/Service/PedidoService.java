@@ -6,6 +6,8 @@ import com.UdeaFood_Back.Modelo.*;
 import com.UdeaFood_Back.Repository.IPedidoRepository;
 import com.UdeaFood_Back.Repository.IProductoRepository;
 import com.UdeaFood_Back.Repository.IUsuarioRepository;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.stylesheets.LinkStyle;
@@ -13,22 +15,33 @@ import org.w3c.dom.stylesheets.LinkStyle;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+@Transactional
+@RequiredArgsConstructor
 @Service
 public class PedidoService {
 
-    @Autowired
-    private IPedidoRepository iPedidoRepository;
-    @Autowired
-    private IUsuarioRepository iUsuarioRepository;
-    @Autowired
-    private IProductoRepository iProductoRepository;
+
+    private final IPedidoRepository iPedidoRepository;
+
+    private final IUsuarioRepository iUsuarioRepository;
+
+    private final IProductoRepository iProductoRepository;
 
    // public Usuario getUsuarioById(Integer id){
         //return iUsuarioRepository.findById(id).orElse(null);
     //}
 
+    public List<ProductoPedido> getProductosByPedidoId(Integer idPedido) {
+        if (idPedido == null || idPedido <= 0) {
+            throw new IllegalArgumentException("El ID del pedido no puede ser nulo o negativo");
+        }
+        Pedido pedido = iPedidoRepository.findById(idPedido)
+                .orElseThrow(() -> new RuntimeException("Pedido no encontrado con ID: " + idPedido));
+        return pedido.getProductoPedidos();
+    }
+
     public Pedido crearPedido(PedidoDTO pedidoDTO){
-        Usuario usuario = iUsuarioRepository.findById(pedidoDTO.getUsuarioId())
+        Usuario usuario = iUsuarioRepository.findById(pedidoDTO.getIdUsuario())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         Pedido pedido = new Pedido();

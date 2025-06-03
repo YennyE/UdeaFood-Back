@@ -5,14 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PedidoDTO {
+public class CalificacionRequest {
     private Integer idUsuario;
-    private Double total;
-    private List<ProductoPedidoDTO> productos;
+    private Integer idProducto;
+    private Integer idPedido;
+    private Integer calificacion;
+    private String comentario;
 }

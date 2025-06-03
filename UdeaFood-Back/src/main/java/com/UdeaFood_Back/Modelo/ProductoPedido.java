@@ -18,6 +18,7 @@ public class ProductoPedido {
     private ProductoPedidoId id;
 
 
+
     @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("producto")
     @JoinColumn(name = "id_Producto", referencedColumnName = "id", nullable = false)

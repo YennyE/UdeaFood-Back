@@ -38,4 +38,8 @@ public class Pedido {
     @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     List<ProductoPedido> productoPedidos;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Calificacion> calificaciones;
+
 }

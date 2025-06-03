@@ -1,0 +1,101 @@
+package com.UdeaFood_Back.Service;
+
+
+import com.UdeaFood_Back.DTO.CalificacionRequest;
+import com.UdeaFood_Back.DTO.CalificacionResponse;
+import com.UdeaFood_Back.Modelo.*;
+import com.UdeaFood_Back.Repository.ICalificacionRepository;
+import com.UdeaFood_Back.Repository.IPedidoRepository;
+import com.UdeaFood_Back.Repository.IProductoPedidoRepository;
+import com.UdeaFood_Back.Repository.IUsuarioRepository;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Transactional
+@Service
+@RequiredArgsConstructor
+public class CalificacionService {
+
+    private final ICalificacionRepository iCalificacionRepository;
+    private final IProductoPedidoRepository iProductoPedidoRepository;
+    private final IUsuarioRepository iUsuarioRepository;
+    private final IPedidoRepository iPedidoRepository;
+
+
+
+
+    public List<CalificacionResponse> getCalificaciones(Integer idProducto){
+        if (idProducto == null || idProducto <= 0) {
+            throw new IllegalArgumentException("El ID del producto no puede ser nulo");
+        }
+        List<Calificacion> calificaciones = iCalificacionRepository.findAllByProducto_Id(idProducto);
+        List<CalificacionResponse> calificacionResponses = calificaciones.stream().map(this::modelToResponse).toList();
+
+        return calificacionResponses;
+    }
+
+
+
+
+
+
+    public CalificacionResponse calificar(CalificacionRequest calificacionRequest) {
+
+        Usuario usuario = iUsuarioRepository.findById(calificacionRequest.getIdUsuario())
+                .orElseThrow(() -> new IllegalArgumentException("Usuario con id: "+calificacionRequest.getIdUsuario()+" no encontrada"));
+
+        if(!usuario.getPedidos().stream().anyMatch(pedido -> pedido.getId().equals(calificacionRequest.getIdPedido()))) {
+            throw new IllegalArgumentException("Usuario no tiene un pedido con id: "+calificacionRequest.getIdPedido());
+        }
+
+        Pedido pedido = iPedidoRepository.findById(calificacionRequest.getIdPedido())
+                .orElseThrow(() -> new IllegalArgumentException("Pedido con id: "+calificacionRequest.getIdPedido()+" no encontrado"));
+
+        ProductoPedido productoPedido = iProductoPedidoRepository.findById(new ProductoPedidoId(calificacionRequest.getIdProducto(), pedido.getId()))
+                .orElseThrow(() -> new IllegalArgumentException("Compra de producto no encontrada"));
+
+
+        if (!usuario.getId().equals(calificacionRequest.getIdUsuario())) {
+            throw new IllegalStateException("Este usuario no compró ese artículo");
+        }
+
+        if (iCalificacionRepository.existsByProducto_IdAndPedido_Id(calificacionRequest.getIdProducto(), pedido.getId())) {
+            throw new IllegalStateException("Ya dejaste reseña para esta compra");
+        }
+
+
+        Calificacion nuevaCalificacion = new Calificacion();
+        nuevaCalificacion.setCalificacion(calificacionRequest.getCalificacion());
+        nuevaCalificacion.setComentario(calificacionRequest.getComentario());
+        nuevaCalificacion.setPedido(pedido);
+        nuevaCalificacion.setProducto(productoPedido.getProducto());
+
+
+        Calificacion calificacionGuardada = iCalificacionRepository.save(nuevaCalificacion);
+
+        return modelToResponse(calificacionGuardada);
+
+    }
+
+
+
+    private CalificacionResponse modelToResponse(Calificacion calificacion) {
+        CalificacionResponse response = new CalificacionResponse();
+        response.setId(calificacion.getId());
+        response.setComentario(calificacion.getComentario());
+        response.setCalificacion(calificacion.getCalificacion());
+        response.setFecha(calificacion.getFecha());
+
+        Usuario usuario = calificacion.getPedido().getUsuario();
+
+        response.setIdUsuario(usuario.getId());
+        response.setNombreUsuario(usuario.getNombre());
+        return response;
+    }
+
+
+
+}
