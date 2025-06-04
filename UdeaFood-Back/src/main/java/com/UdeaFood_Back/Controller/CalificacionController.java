@@ -27,4 +27,9 @@ public class CalificacionController {
     public CalificacionResponse calificar(@RequestBody CalificacionRequest calificacionRequest){
         return calificacionService.calificar(calificacionRequest);
     }
+
+    @GetMapping("/{idUsuario}/{idProducto}")
+    public CalificacionResponse getCalificacionPorUsuario(@PathVariable Integer idUsuario, @PathVariable Integer idProducto) {
+        return calificacionService.getCalificacionPorUsuario(idUsuario, idProducto);
+    }
 }

@@ -31,7 +31,10 @@ public class PedidoController {
         return ResponseEntity.ok(pedidoService.getProductosByPedidoId(idPedido));
     }
 
-
+    @GetMapping("/{idUsuario}/{idProducto}")
+    public Integer getIdPedidoPorUsuarioYProducto(@PathVariable Integer idUsuario, @PathVariable Integer idProducto) {
+        return pedidoService.getPedidoIdPorUsuarioYProducto(idUsuario, idProducto);
+    }
 
 
 }

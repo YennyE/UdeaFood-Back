@@ -4,10 +4,7 @@ package com.UdeaFood_Back.Service;
 import com.UdeaFood_Back.DTO.CalificacionRequest;
 import com.UdeaFood_Back.DTO.CalificacionResponse;
 import com.UdeaFood_Back.Modelo.*;
-import com.UdeaFood_Back.Repository.ICalificacionRepository;
-import com.UdeaFood_Back.Repository.IPedidoRepository;
-import com.UdeaFood_Back.Repository.IProductoPedidoRepository;
-import com.UdeaFood_Back.Repository.IUsuarioRepository;
+import com.UdeaFood_Back.Repository.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,9 +21,31 @@ public class CalificacionService {
     private final IProductoPedidoRepository iProductoPedidoRepository;
     private final IUsuarioRepository iUsuarioRepository;
     private final IPedidoRepository iPedidoRepository;
+    private final IProductoRepository iProductoRepository;
 
 
+    public CalificacionResponse getCalificacionPorUsuario(Integer idUsuario, Integer idProducto) {
+        Usuario usuario = iUsuarioRepository.findById(idUsuario)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario con id: " + idUsuario + " no encontrado"));
 
+        Producto producto = iProductoRepository.findById(idProducto)
+                .orElseThrow(() -> new IllegalArgumentException("Producto con id: " + idProducto + " no encontrado"));
+
+        // Busca el pedido del usuario que tiene el producto
+        Pedido pedido = usuario.getPedidos().stream()
+                .filter(p -> p.getProductoPedidos().stream()
+                        .anyMatch(productoPedido -> productoPedido.getProducto().getId().equals(idProducto)))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró un pedido del usuario con el producto especificado"));
+
+        // Busca la calificación asociada al pedido y al producto
+        Calificacion calificacion = iCalificacionRepository.findAllByProducto_Id(idProducto).stream()
+                .filter(c -> c.getPedido().getId().equals(pedido.getId()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró una calificación para el producto en el pedido del usuario"));
+
+        return modelToResponse(calificacion);
+    }
 
     public List<CalificacionResponse> getCalificaciones(Integer idProducto){
         if (idProducto == null || idProducto <= 0) {

@@ -149,4 +149,9 @@ public class ProductoService {
         return iProductoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("El producto con ID " + id + " no existe."));
     }
+
+
+    public void obtenerCalificaciones(Integer idProducto){
+
+    }
 }

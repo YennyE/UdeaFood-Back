@@ -8,9 +8,8 @@ import com.UdeaFood_Back.Repository.IProductoRepository;
 import com.UdeaFood_Back.Repository.IUsuarioRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.stylesheets.LinkStyle;
+
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -73,6 +72,26 @@ public class PedidoService {
             pp.getId().setPedido(pedidoGuardado.getId());
         }
         return iPedidoRepository.save(pedidoGuardado);
+    }
+
+
+
+    public Integer getPedidoIdPorUsuarioYProducto(Integer idUsuario, Integer idProducto) {
+
+        Usuario usuario = iUsuarioRepository.findById(idUsuario)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario con id: " + idUsuario + " no encontrado"));
+
+        Producto producto = iProductoRepository.findById(idProducto)
+                .orElseThrow(() -> new IllegalArgumentException("Producto con id: " + idProducto + " no encontrado"));
+
+        // Busca el pedido del usuario que contiene el producto
+        Pedido pedido = usuario.getPedidos().stream()
+                .filter(p -> p.getProductoPedidos().stream()
+                        .anyMatch(pp -> pp.getProducto().getId().equals(idProducto)))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró un pedido del usuario con el producto especificado"));
+
+        return pedido.getId();
     }
 
 }
