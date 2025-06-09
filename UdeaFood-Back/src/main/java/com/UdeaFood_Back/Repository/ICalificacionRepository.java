@@ -1,14 +1,15 @@
 package com.UdeaFood_Back.Repository;
 
 import com.UdeaFood_Back.Modelo.Calificacion;
-import com.UdeaFood_Back.Modelo.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface IProductoRepository extends JpaRepository<Producto, Integer>{
+public interface ICalificacionRepository extends JpaRepository<Calificacion, Integer> {
 
-    List<Producto> findAllByNombreContaining(String nombre);
+    List<Calificacion> findAllByProducto_Id(Integer idProducto);
+    Boolean existsByProducto_IdAndPedido_Id(Integer idPedido, Integer idProducto);
+
 }
